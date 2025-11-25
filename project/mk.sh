@@ -1,2 +1,0 @@
-mkdir moviexyz
-cd moviexyz
