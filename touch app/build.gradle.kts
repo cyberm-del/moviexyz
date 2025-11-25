@@ -1,16 +1,46 @@
 plugins {
-    id("com.android.application") version "8.2.0" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.21" apply false
-    id("com.lagradost.cloudstream3.plugin") version "1.0.0" apply false
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    id("com.lagradost.cloudstream3.plugin")
 }
 
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url = uri("https://jitpack.io") }
+android {
+    namespace = "com.moviexyz.multisource"
+    compileSdk = 34
+    
+    defaultConfig {
+        minSdk = 24
+        targetSdk = 34
+        
+        plugin {
+            name = "MultiSource Plugin"
+            author = "moviexyz"
+            version = "1.0.0"
+            description = "Extension for MusicHQ, MovieMaze, KickassAnime, and Mirror sites"
+        }
     }
-    dependencies {
-        classpath("com.lagradost.cloudstream3:gradle-plugin:1.0.0")
+    
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
     }
+    
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
+dependencies {
+    implementation("com.lagradost.cloudstream3:cloudstream3:1.0.0")
+    implementation("org.jsoup:jsoup:1.14.3")
 }
